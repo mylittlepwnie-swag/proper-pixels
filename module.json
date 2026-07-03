@@ -1,7 +1,7 @@
 {
     "id": "proper-pixels",
     "title": "Proper Pixels",
-    "description": "Change how Foundry displays pixelart tokens",
+    "description": "Change how Foundry displays pixelart tokens Tronikart made this not me but this is just for personal use anyway wink",
     "authors": [
         {
             "name": "wickedRobot#2069"
@@ -17,7 +17,7 @@
         "maximum": "13"
     },
     "compatibleCoreVersion": "11",
-    "download": "https://github.com/Tronikart/proper-pixels/releases/latest/download/module.zip",
-    "manifest": "https://github.com/Tronikart/proper-pixels/releases/latest/download/module.json",
-    "url": "https://github.com/Tronikart/proper-pixels"
+    "download": "https://github.com/mylittlepwnie-swag/proper-pixels/releases/latest/download/module.zip",
+    "manifest": "https://github.com/mylittlepwnie-swag/proper-pixels/releases/latest/download/module.json",
+    "url": "https://github.com/mylittlepwnie-swag/proper-pixels"
 }
