@@ -13,11 +13,11 @@
     ],
     "compatibility": {
         "minimum": "10",
-        "verified": "11",
-        "maximum": "13"
+        "verified": "13",
+        "maximum": "14"
     },
     "compatibleCoreVersion": "11",
-    "download": "https://github.com/mylittlepwnie-swag/proper-pixels/releases/latest/download/module.zip",
-    "manifest": "https://github.com/mylittlepwnie-swag/proper-pixels/releases/latest/download/module.json",
+    "download": "https://github.com/mylittlepwnie-swag/proper-pixels/archive/refs/heads/main.zip",
+    "manifest": "https://raw.githubusercontent.com/mylittlepwnie-swag/proper-pixels/main/module.json",
     "url": "https://github.com/mylittlepwnie-swag/proper-pixels"
 }
