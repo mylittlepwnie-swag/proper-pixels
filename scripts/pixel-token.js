@@ -74,7 +74,7 @@ Hooks.on("canvasReady", () => {
     if (getAffectTokens()) {
         for (let token of canvas.tokens.placeables) {
             if (getShouldIgnorePreTaggerReady(token)) {
-                return;
+                continue;
             }
             token.texture.baseTexture.setStyle(0, 0);
             token.texture.baseTexture.update();
@@ -84,7 +84,7 @@ Hooks.on("canvasReady", () => {
         // there has to be an easier way to get tiles, right?
         for (let tile of canvas.tiles.placeables) {
             if (getShouldIgnorePreTaggerReady(tile)) {
-                return;
+                continue;
             }
             tile.texture.baseTexture.setStyle(0, 0);
             tile.texture.baseTexture.update();
@@ -128,6 +128,27 @@ Hooks.on("preUpdateToken", (token) => {
     }
 })
 
+// preUpdateToken only styles the texture the token had BEFORE the update, so a
+// texture swap (directional movement modules, image changes) came in with the
+// default smooth filtering and stayed blurry until the scene was reloaded.
+// refreshToken fires after every redraw, so restyle the current texture here.
+// The scaleMode check keeps this a no-op on the frequent refreshes where the
+// texture is already pixelated.
+Hooks.on("refreshToken", (token) => {
+    if (!getAffectTokens()) {
+        return;
+    }
+    const baseTexture = token.texture?.baseTexture;
+    if (baseTexture == null || baseTexture.scaleMode === 0) {
+        return;
+    }
+    if (window.Tagger != null && Tagger.hasTags(token.document, getIgnoreTag())) {
+        return;
+    }
+    baseTexture.setStyle(0, 0);
+    baseTexture.update();
+})
+
 
 Hooks.on("createTile", async (tile) => {
     // you know the drill
@@ -150,6 +171,23 @@ Hooks.on("preUpdateTile", (tile) => {
         const baseTexture = tile.object.texture.baseTexture;
         baseTexture.setStyle(0, 0);
     }
+})
+
+// Same as refreshToken above: restyle tile textures that were swapped in
+// after the scene loaded.
+Hooks.on("refreshTile", (tile) => {
+    if (!getAffectTiles()) {
+        return;
+    }
+    const baseTexture = tile.texture?.baseTexture;
+    if (baseTexture == null || baseTexture.scaleMode === 0) {
+        return;
+    }
+    if (window.Tagger != null && Tagger.hasTags(tile.document, getIgnoreTag())) {
+        return;
+    }
+    baseTexture.setStyle(0, 0);
+    baseTexture.update();
 })
 
 if (window['game'].system.id == 'dnd5e') {
