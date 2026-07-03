@@ -1,4 +1,5 @@
 export function getAffectTiles() { return game.settings.get('proper-pixels', 'affectTiles') };
+export function getAffectBackgrounds() { return game.settings.get('proper-pixels', 'affectBackgrounds') };
 export function getAffectTokens() { return game.settings.get('proper-pixels', 'affectTokens') };
 export function getAffectCharacterSheets() { return game.settings.get('proper-pixels', 'affectCharacterSheets') ? window['game'].system.id == 'id' : false};
 export function getIgnoreTag() { return game.settings.get('proper-pixels', 'tokenTag') };
@@ -14,6 +15,17 @@ Hooks.once('init', async function () {
     game.settings.register('proper-pixels', 'affectTiles', {
         name: "Affects Tiles",
         hint: "If this is toggled, Tiles will be affected by this module",
+        scope: "world",
+        type: Boolean,
+        default: 1,
+        config: true,
+        requiresReload: true,
+        default: true
+    });
+
+    game.settings.register('proper-pixels', 'affectBackgrounds', {
+        name: "Affects Scene Backgrounds",
+        hint: "If this is toggled, Scene Background and Foreground images will be affected by this module",
         scope: "world",
         type: Boolean,
         default: 1,
@@ -76,6 +88,18 @@ Hooks.on("canvasReady", () => {
             }
             tile.texture.baseTexture.setStyle(0, 0);
             tile.texture.baseTexture.update();
+        }
+    }
+    if (getAffectBackgrounds()) {
+        // the scene background and foreground images live on the primary
+        // canvas group, a scene might not have either so check first
+        for (let mesh of [canvas.primary.background, canvas.primary.foreground]) {
+            const baseTexture = mesh?.texture?.baseTexture;
+            if (baseTexture == null) {
+                continue;
+            }
+            baseTexture.setStyle(0, 0);
+            baseTexture.update();
         }
     }
 })

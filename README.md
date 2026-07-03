@@ -1,5 +1,5 @@
 # Proper Pixels
-A Foundry VTT mod to modify the scaling of tokens to use with pixelart
+A Foundry VTT mod to modify the scaling of tokens, tiles and scene backgrounds to use with pixelart
 
 This mod works when the token is created and when the canvas is loaded, if for some reason it doesn't work, just delete the token and place it again, this has happened to me once.
 
@@ -28,7 +28,3 @@ Using [Tagger](https://github.com/fantasycalendar/FoundryVTT-Tagger) you can cre
 This mod can be installed as any regular mod through the mod manager
 
 Use this manifest url on the module manager window: https://github.com/Tronikart/proper-pixels/releases/latest/download/module.json
-
-### TODO
-
-* Figure out how to do this for backgrounds as well
